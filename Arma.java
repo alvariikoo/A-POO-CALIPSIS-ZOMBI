@@ -3,7 +3,7 @@ public class Arma extends Equipo{
     
     
     private int potencia;
-    private int alcance;
+    private int arcangel;
     private int numDados;
     private int valorExito;
     
@@ -12,7 +12,7 @@ public class Arma extends Equipo{
         
         super(nombre1);
         this.potencia = potencia1;
-        this.alcance = alcance1;
+        this.arcangel = alcance1;
         this.numDados = numDados1;
         this.valorExito = valorExito1;
         
@@ -23,7 +23,7 @@ public class Arma extends Equipo{
     }
     
     public int getAlcance(){
-        return this.alcance;
+        return this.arcangel;
     }
     
     public int getNumDados(){
@@ -38,7 +38,7 @@ public class Arma extends Equipo{
         this.potencia = potencia1;
     }
     public void setAlcance(int alcance1){
-        this.alcance = alcance1;
+        this.arcangel = alcance1;
     }
     public void setNumDados(int dados){
         this.numDados = dados;
@@ -49,7 +49,7 @@ public class Arma extends Equipo{
     
     public boolean isCuerpoACuerpo(Arma arma){
         
-        if(arma.alcance == 0){
+        if(arma.arcangel == 0){
             return true;
         }else{
             return false;
@@ -72,7 +72,7 @@ public class Arma extends Equipo{
         return "Arma{" +
                 "nombre='" + nombre + '\'' +
                 ", potencia=" + potencia +
-                ", alcance=" + alcance +
+                ", alcance=" + arcangel +
                 ", numeroDeDados=" + numDados +
                 ", valorDeExito=" + valorExito +
                 '}';
