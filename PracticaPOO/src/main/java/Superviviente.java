@@ -114,8 +114,8 @@ public class Superviviente extends Entidad{
     while (contador < 2) {
         System.out.println("Selecciona un arma para el juego:");
 
-        Arma armaSelecc = elegirArma();
-        armasActivas[contador] = armaSelecc; 
+        Arma armaSeleccionada = elegirArma();
+        armasActivas[contador] = armaSeleccionada; 
         
         contador++;
               
@@ -129,13 +129,17 @@ public class Superviviente extends Entidad{
     return armasActivas;
 }
     
-    
-    
-    
-    
-    
-    
-
+    public void buscar(int x,int y,Tablero tablero){
+        
+        inventario.mostrarInventario();
+        
+        inventario.añadirEquipo( tablero.getCasilla(x, y).getEquipo());
+            
+        
+        System.out.println("Inventario actualizado:\n");
+        inventario.mostrarInventario();
+            
+    }
     
 
 }       
