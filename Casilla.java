@@ -1,18 +1,24 @@
+import java.util.ArrayList;
 
 public class Casilla {
     
     private int x;
     private int y;
-    private Entidad entidad;   
+    private ArrayList<Entidad> entidades;
     private Equipo equipo;
     
     
-    public Casilla(int x, int y, Entidad entidad, Equipo equipo){
+    public Casilla(int x, int y, ArrayList<Entidad> entidades, Equipo equipo){
     
         this.x = x;
         this.y = y;
-        this.entidad = entidad;
+        this.entidades = new ArrayList<>();
         this.equipo = equipo;
+    }
+    
+    public Casilla(int x, int y){
+        this.x = x;
+        this.y = y;
     }
     
     public Equipo getEquipo(){
@@ -22,19 +28,21 @@ public class Casilla {
         this.equipo = equipo;
     }
 
-    public Entidad getEntidad(){
-        return entidad;
+    public ArrayList<Entidad> getEntidad(){
+        return entidades;
     }
     
-    public void setEntidad(Entidad entidad){
-        this.entidad = entidad;
+    public void setEntidad(ArrayList<Entidad>entidad){
+        this.entidades = entidad;
     }
     
     public boolean isVacia(){
-        if(this.entidad ==null &&this.equipo ==null){
-            return true;
-        }
-        return false;
+       for(int i=0;i<entidades.size();i++){
+           if(entidades.get(i) != null){
+               return false;
+           }
+       }
+         return entidades.isEmpty();
     }
     
     public int getX(){
@@ -47,25 +55,28 @@ public class Casilla {
     
     public void mostrarOcupado(){
         
-           if(this.entidad.isSuperviviente(entidad) ==true){
-               if(entidad.getNombre().charAt(0) == 'Z'){
-                 System.out.println("[" + entidad.getNombre().charAt(0) + entidad.getNombre().charAt(1) + "]");
-               }
-              System.out.println("[" + entidad.getNombre().charAt(0) + "]");
-          }
-           
-           if(this.entidad.isZombi(entidad)==true){
-               System.out.println("[Z]");
-           }
-           if(this.entidad == null || this.equipo ==null){
-              System.out.println("[ ]");
-                
-           }
-           if(this.equipo !=null){
-             System.out.println("[Eq]");
+        StringBuilder mostrar = new StringBuilder("[");
 
-           }
+        for(int i=0;i<entidades.size();i++){
+            
+            if(isVacia() != false){
+                System.out.println("[ ]");
+                return;
+            }
+            
+            
+            mostrar.append(entidades.get(i).getNombre().charAt(0));
+            
+            if(i<entidades.size()-1){
+                mostrar.append("-");
+            }
+        }
+        
+        
+        mostrar.append("]");
+        System.out.println(mostrar.toString());
+        
+                   
     }
-    
-    
+       
 }
