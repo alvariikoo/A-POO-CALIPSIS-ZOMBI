@@ -1,6 +1,3 @@
-import java.util.Random;
-
-
 public class Zombi extends Entidad {
     private int aguante;
     private int activaciones;
@@ -47,33 +44,14 @@ public class Zombi extends Entidad {
         this.subtipo = subtipo;
     }
 
-
-    public static Zombi generarZombiAleatorio(int x, int y) {
-        Random rand = new Random();
-        String[] tipos = {"Normal", "Berserker", "Tóxico"};
-        String[] subtipos = {"Caminante", "Corredor", "Abominación"};
-
-        int prob = rand.nextInt(100);
-        String subtipo;
-        if (prob < 60) {
-            subtipo = "Caminante";
-        } else if (prob < 90) {
-            subtipo = "Corredor";
-        } else {
-            subtipo = "Abominación";
-        }
-
-        String tipo = tipos[rand.nextInt(tipos.length)];
-
-        int aguante = 1;
-        int activaciones = 1;
-        if ("Corredor".equals(subtipo)) {
-            activaciones = 2;
-        } else if ("Abominación".equals(subtipo)) {
-            aguante = 3;
-        }
-
-        String nombre = "Zombi " + subtipo + " " + tipo;
-        return new Zombi(nombre, x, y, aguante, activaciones, tipo, subtipo);
+    @Override
+    public String toString() {
+        return "Zombi{" + "aguante=" + aguante + ", activaciones=" + activaciones + ", tipo=" + tipo + ", subtipo=" + subtipo + '}';
     }
+
+    
+
+    
+
 }
+
