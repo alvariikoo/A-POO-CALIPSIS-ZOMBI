@@ -9,7 +9,7 @@ public class Provision extends Equipo{
         super(nombre1);
         this.valorEnergetico = valorEnergetico1;
         this.fechaCaducidad= fechaCaducidad1;
-        
+  
     }
     
     public int getValorEnergetico() {
