@@ -13,6 +13,7 @@ public class Entidad {
    
     public String getNombre() {
         return nombre;
+        
     }
 
     public void setNombre(String nombre) {
@@ -93,5 +94,5 @@ public class Entidad {
     }
     
     
-    
+   
 }
