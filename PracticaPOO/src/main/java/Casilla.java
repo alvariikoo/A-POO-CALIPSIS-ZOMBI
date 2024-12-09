@@ -39,9 +39,10 @@ public class Casilla {
     public boolean isVacia(){
        for(int i=0;i<entidades.size();i++){
            if(entidades.get(i) != null){
-               return false;
+               return false; 
            }
        }
+       
          return entidades.isEmpty();
     }
     
