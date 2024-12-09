@@ -1,4 +1,5 @@
 public class Zombi extends Entidad {
+    private String estado;
     private int aguante;
     private int activaciones;
     private String tipo;
@@ -6,11 +7,22 @@ public class Zombi extends Entidad {
 
     public Zombi(String nombre, int aguante, int activaciones, String tipo, String subtipo) {
         super(nombre);
+        this.estado = "Vivo";
         this.aguante = aguante;
         this.activaciones = activaciones;
         this.tipo = tipo;
         this.subtipo = subtipo;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+        
+    }
+       
 
     public int getAguante() {
         return aguante;
@@ -50,10 +62,6 @@ public class Zombi extends Entidad {
     }
     
     
-    
-    
-
-    
-
+ 
 }
 
