@@ -1,4 +1,7 @@
 
+import java.util.Scanner;
+
+
 public class Inventario {
     
         private Equipo[] equipos;
@@ -15,17 +18,26 @@ public class Inventario {
     
     public boolean añadirEquipo(Equipo equipo){
         
-        if(contador>5 ){
-            System.out.println("No se puede añadir más equipos, el inventario está lleno.\n");
-            return false;
-        }
-        if(equipo == null){
+            Scanner scanner = new Scanner(System.in);
+            
+            if(equipo == null){
             System.out.println("No se pueden añadir equipos que no existen.\n");
+            
             return false;
         }
+            
+
+        if(contador>5 ){
+            
+            System.out.println("Selecciona la posición del inventario que quieres cambiar:\n");
+            int posicion = scanner.nextInt();
+            cambiarObjetos(equipo,posicion);
+        }
+        
         
         equipos[contador] = equipo;
         contador++;
+        
         return true;
         
     }
