@@ -1,7 +1,6 @@
 
 public class Arma extends Equipo{
     
-    
     private int potencia;
     private int alcance;
     private int numDados;
