@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Superviviente extends Entidad{
@@ -9,7 +10,7 @@ public class Superviviente extends Entidad{
     private int kills;
     private int heridas;
 
-    public Superviviente(String nombre1, String estado, int AccionesPorTurno, Inventario inventario1, Arma[] armasActivas, int kills, int heridas) {
+    public Superviviente(String nombre1, String estado, int AccionesPorTurno, Inventario inventario1, Arma[] armasActivas, int kills,int heridas) {
         super(nombre1);
         this.estado = estado;
         this.AccionesPorTurno = AccionesPorTurno;
@@ -141,5 +142,118 @@ public class Superviviente extends Entidad{
             
     }
     
+    public int ataqueDados(Arma arma){
+        
+        int accion=0;
+        for(int i=0;i<arma.getNumDados();i++){
+            
+           int dado= (int) (Math.random() * 5)+1;
+           
+           System.out.println("Lanzando el dado"+(i+1)+"->"+dado);
+           
+           if(dado >= arma.getValorExito()){
+               
+               System.out.println("¡Éxito!");
+               accion++;
+           }
+        }
+        return accion;
+        
+    }
+    
+    
+    public void atacarZombi( Tablero tablero){
+        
+        
+        ArrayList<Zombi> zombisDisponibles = new ArrayList<>();
 
-}       
+        Casilla casilla = tablero.getSupervivientes(this);
+        Arma arma = this.elegirArma();
+        int acciones = ataqueDados(arma);
+        int alcance = arma.getAlcance();
+        int potencia = arma.getPotencia();
+        
+        int x = casilla.getX();
+        int y = casilla.getY();
+        
+        for(int i = x-alcance;i<x +alcance;i++){
+            for(int j = y -alcance ; j< y + alcance;j++){
+                                    
+                ArrayList<Entidad> entidades = tablero.getCasilla(i, j).getEntidad();
+
+                if(entidades != null){
+                        for(int p=0;p<entidades.size();p++){
+                            
+                            Entidad entidad = entidades.get(p);
+                            
+                            if(entidad instanceof Zombi){
+                             Zombi zombi1 = (Zombi) entidad;
+                             
+                             zombisDisponibles.add(zombi1);
+                            }
+                        }
+                        
+                    }
+            }
+        }
+        
+        
+        
+            Scanner scanner = new Scanner(System.in);
+            
+            for( int i=0;i<zombisDisponibles.size();i++){
+                
+                Zombi zombi = zombisDisponibles.get(i);
+                System.out.println("Zombi"+i+zombi.toString()+"\n");
+            }
+            
+            
+            for(int i = 0; i < acciones;i++){
+                
+            
+            
+            
+            
+            
+            
+            
+            }
+        
+        
+       
+        
+        
+        
+        
+    } 
+    
+    
+    public void reaccionarAtaque(Superviviente superviviente, Zombi zombi, Casilla casilla){
+        
+        
+        
+        if(zombi.getSubtipo().equals("Tóxico") && casilla.getEntidad().contains(superviviente) && casilla.getEntidad().contains(zombi) ){
+            
+           int heridas= superviviente.getHeridas();
+           
+           heridas +=1;
+           System.out.println(nombre+" ha sufrido una herida al matar un zombi tóxico.\n");
+                       
+        }
+        
+        if(zombi.getEstado().equals("Vivo")&& casilla.getEntidad().contains(superviviente) && casilla.getEntidad().contains(zombi) ){
+            heridas +=1;
+            System.out.println(nombre+" ha sufrido una herida por un zombi.\n");
+        }
+        
+        if(heridas == 2){
+            
+            System.out.println(nombre+" ha sido eliminado.\n");
+            
+            superviviente.setEstado("Muerto");
+            
+        }
+        
+    }
+
+}
