@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
+
 public class Tablero{
 
     private Casilla[][] tablero;
@@ -18,7 +19,7 @@ public class Tablero{
           crearTablero();
     }
     
-    private void crearTablero(){
+    public void crearTablero(){
         
         for(int i= 0;i<tablero.length;i++){
             for(int j=0;j<tablero[i].length;j++){
@@ -27,8 +28,8 @@ public class Tablero{
             }
             
             for(i=0;i<5;i++){
-                int x = (int) (Math.random()*10);
-                int y = (int) (Math.random()*10);
+                int x = (int) (Math.random()*9);
+                int y = (int) (Math.random()*9);
            
             tablero[x][y].setEquipo(generarProvision());
             
@@ -48,13 +49,18 @@ public class Tablero{
         tablero[0][0].setEntidad(new ArrayList<>(Arrays.asList(generarSuperviviente())));
         
         for(int q =0;q<3;q++){
-                int x = (int) (Math.random()*10);
-                int y = (int) (Math.random()*10);
-           
-             
-                tablero[x][y].setEntidad(new ArrayList<>(Arrays.asList(generarZombiAleatorio())));
-
+                int x = (int) (Math.random()*9);
+                int y = (int) (Math.random()*9);
+                
+                Zombi zombi = generarZombiAleatorio();
+                
+                Casilla casilla = tablero[x][y];
+                ArrayList<Entidad> entidades = casilla.getEntidad();
+                entidades.add(zombi);
+                casilla.setEntidad(entidades);
             
+                zombi.setPosicionZ(casilla);
+                
             }
        
 
@@ -239,45 +245,82 @@ public class Tablero{
     }
     
     
-    public Entidad generarZombiAleatorio() {
+    public Zombi generarZombiAleatorio() {
     int rand = (int) (Math.random() * 100);
     Zombi zombi;
 
     if (rand < 60) {
         int rand1 = (int) (Math.random() * 3);
         if (rand1 == 0) {
-            zombi = new Zombi(this.generarNombreZombi(), 1, 1, "Caminante", "Normal");
+            zombi = new Zombi(this.generarNombreZombi(),"Vivo", 1, 1, "Caminante", "Normal");
         } else if (rand1 == 1) {
-            zombi = new Zombi(this.generarNombreZombi(), 1, 1, "Caminante", "Berserker");
+            zombi = new Zombi(this.generarNombreZombi(),"Vivo", 1, 1, "Caminante", "Berserker");
         } else {
-            zombi = new Zombi(this.generarNombreZombi(), 1, 1, "Caminante", "Normal");
+            zombi = new Zombi(this.generarNombreZombi(),"Vivo", 1, 1, "Caminante", "Normal");
         }
     } else if (rand < 90) {
         int rand2 = (int) (Math.random() * 3);
         if (rand2 == 0) {
-            zombi = new Zombi(this.generarNombreZombi(), 1, 2, "Corredor", "Normal");
+            zombi = new Zombi(this.generarNombreZombi(),"Vivo", 1, 2, "Corredor", "Normal");
         } else if (rand2 == 1) {
-            zombi = new Zombi(this.generarNombreZombi(), 1, 2, "Corredor", "Berserker");
+            zombi = new Zombi(this.generarNombreZombi(),"Vivo", 1, 2, "Corredor", "Berserker");
         } else {
-            zombi = new Zombi(this.generarNombreZombi(), 1, 2, "Corredor", "Tóxico");
+            zombi = new Zombi(this.generarNombreZombi(),"Vivo", 1, 2, "Corredor", "Tóxico");
         }
     } else {
         int rand3 = (int) (Math.random() * 3);
         if (rand3 == 0) {
-            zombi = new Zombi(this.generarNombreZombi(), 3, 1, "Abominacion", "Normal");
+            zombi = new Zombi(this.generarNombreZombi(),"Vivo", 3, 1, "Abominacion", "Normal");
         } else if (rand3 == 1) {
-            zombi = new Zombi(this.generarNombreZombi(), 3, 1, "Abominacion", "Berserker");
+            zombi = new Zombi(this.generarNombreZombi(),"Vivo", 3, 1, "Abominacion", "Berserker");
         } else {
-            zombi = new Zombi(this.generarNombreZombi(), 3, 1, "Abominacion", "Tóxico");
+            zombi = new Zombi(this.generarNombreZombi(),"Vivo", 3, 1, "Abominacion", "Tóxico");
         }
     }
 
     return zombi;
 }
+    
+    public void generarZombiRonda(){
+        
+        Zombi zombi = generarZombiAleatorio();
+        
+        int x = (int) (Math.random()*9);
+        int y = (int) (Math.random()*9);
 
+         
+         Casilla casilla = tablero[x][y];
+           ArrayList<Entidad> entidades = casilla.getEntidad();
+            entidades.add(zombi);
+             casilla.setEntidad(entidades);
+            
+                zombi.setPosicionZ(casilla);        
+        
+    }
     
-    
-    
+    public ArrayList<Entidad> arrayEntidades(){
+        
+        ArrayList<Entidad> entidades = new ArrayList<>();
+                
+        for(int i = 0;i<tablero.length;i++){
+                for(int p=0;p<tablero[i].length;p++){
+                    
+                    ArrayList<Entidad> entidadesCasilla = this.getCasilla(i, p).getEntidad();
+                   
+                    if(entidadesCasilla != null){
+                        entidades.addAll(entidadesCasilla);
+                       
+                       
+                   }
+                    
+                        
+                }
+            }
+        return entidades;
+        
+        
+    }
+
     
     
 }
